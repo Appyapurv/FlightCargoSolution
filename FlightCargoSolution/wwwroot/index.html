@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="api.js"></script>
+        <script src="main.js"></script>
+        <link rel="stylesheet" type="text/css" href="layout.css">
+    </head>
+    <body onLoad="onLoad()" >
+
+        <div id="app">
+
+        <div class="map_container">
+            <img class="map" id="map" src="world-map.jpg"/>
+
+            <span v-for="city in cities" v-on:click="cityClicked(city)"
+            v-bind:style="{top: ((90-city.location[1]) / 1.8) + '%', right: ((180 - city.location[0])/3.6) + '%'}" class="city"></span>
+
+            <!-- Using CSS to map to image and UNICODE glyph to display-->
+            <span v-for="plane in planes"   v-on:click="planeClicked(plane)"
+             v-bind:style="{transform: 'rotate('+(plane.heading-90)+'deg)', top: ((90-plane.currentLocation[1]) / 1.8) + '%', right: ((180 - plane.currentLocation[0])/3.6) + '%'}"
+             class="plane">&#x2708;</span>
+
+    </div>
+    <!-- Controls -->
+    <div>
+        <span  v-if="selectedType == 'plane'" >
+           <select name="destinations" v-model="destinations">
+                <option v-for="city in cities" id="cities"> {{city.name}} </option>
+            </select>
+            <button v-on:click="addDestination(selected)" >Add Destination</button>
+            <button v-on:click="replaceRoute(selected)" >Replace Route</button>
+        </span>
+        <span  v-if="selectedType == 'city'" >
+            <button v-on:click="acceptCargo(selected)" >New Cargo For </button>
+            <select name="destinations" v-model="destinations">
+                 <option v-for="city in cities" id="cities"> {{city.name}} </option>
+             </select>
+         </span>
+    </div>
+
+        <!-- Show data from what we click on, this can use a generic JSON object but I'd like control -->
+        <!-- TODO, Make this not use tables -->
+        <div class='form_container'>
+
+            <table class="dataform">
+                <tr class="dataform" v-for="(value,name) in  getSelected() ">
+                    <td class="formlabel" >{{name}}:</td>
+                    <td class="dataform">
+                    <template v-if="Array.isArray(value)" >
+                            <!-- Arrays -->
+                            <table class="arrayObject">
+                                <tr class="dataform" v-for="element in value ">
+                                    <template v-if="!( element instanceof Object && toString.call(element) == '[object Object]')">
+                                        <td class="dataform">{{ element }}</td>
+                                    </template>
+                                    <template v-else>
+                                        <table class="arrayObject">
+                                            <tr class="dataform" v-for="(innervalue,innername) in element ">
+                                                <td class="formlabel" >{{innername}}:</td>
+                                                <td class="dataform" >{{innervalue}}</td>
+                                                <template v-if="innername == 'courier'">
+                                                    <select   v-model="cargoCourier[element.id]" >
+                                                        <option v-for="plane in planes"  > {{plane.callsign}} </option>
+                                                    </select>
+                                                    <button v-on:click="changeCourier(element.id)" >Set Next Courier</button>
+                                                </template>
+                                            </tr>
+                                            </table>
+                                </template>
+                            </tr>
+                        </table>
+                    </template>
+                    <template v-else-if="value instanceof Object && toString.call(value) == '[object Object]'">
+                        <table class="dataform">
+                            <tr class="dataform" v-for="(innervalue,innername) in value ">
+                                <td class="formlabel" >{{innername}}:</td>
+                                <td class="dataform" > {{innervalue}}</td>
+                            </tr>
+                        </table>
+                    </template>
+                    <template v-else>
+                       {{value}}
+                    </template>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        </div>
+        </body>
+    </body>
+</html>

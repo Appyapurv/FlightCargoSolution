@@ -1,0 +1,82 @@
+.city {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    background-color: #777;
+    border:1px solid yellowgreen;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .plane {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    color: yellow;
+    font-size: 16pt;
+    font-family: verdana;
+    display: inline-block;
+    transition:transform 0.1;
+  }
+
+.map {
+    width: 100%;
+}
+
+.map_container {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    color: blue;
+  }
+
+  .form_container {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    font-size: 16pt;
+    font-family: verdana;
+    color: blue;
+  }
+
+
+td.formlabel {
+
+  text-transform: capitalize;
+  text-align: right;
+  vertical-align: text-top;
+  padding-right: 10px;
+  font-weight: bold;
+  width:1%;
+  white-space:nowrap;
+}
+
+table.dataform {
+  border-collapse: collapse;
+  background-color: aliceblue;
+  width: 100%;
+}
+
+
+table.arrayObject {
+  width:100%;
+  border:10px solid aliceblue;
+
+  border-collapse: collapse;
+}
+
+tr.dataform {
+  width:100%;
+
+}
+
+
+td.dataform  {
+    border:1px solid rgb(197, 193, 193);
+    border-collapse: collapse;
+    background-color: white;
+  }
