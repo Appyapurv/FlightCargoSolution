@@ -1,7 +1,29 @@
 **FlightCargoSolution**
 
 
-Index Added On- 
+**Index -**
+1. created index on cities& planes for GeoSphere 2D
+2. Index created will be handle in API solution
+
+Developed and tested solution using MongoDB Atlas 
+
+**Schema Changes
+**
+1. Added schema version for cargo collection to maintain the schema versioning
+2. Added few field in plane collection to maintain the distancetravelled, timeTravelled, ManintaianceRequired
+3. Added changestream for methods
+4. GeoNear is used to calculate the distanace travelled.
+5. 
+
+**Logging** 
+1. Default logging is applied through out the code.
+2. logging the custom message
+
+**Testing-**
+Tested solution with 200 planes and 2000+ cities
+
+
+**Index Added On- **
 
 //Create 2d shpere index for position in cities
 db.cities.createIndex( { position: "2dsphere" } )
