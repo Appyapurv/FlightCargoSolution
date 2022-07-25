@@ -1,7 +1,7 @@
 **FlightCargoSolution**
 
 
-Index Required On- 
+Index Added On- 
 
 //Create 2d shpere index for position in cities
 db.cities.createIndex( { position: "2dsphere" } )
